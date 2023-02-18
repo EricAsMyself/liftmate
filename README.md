@@ -6,9 +6,7 @@ This App is meant to have you workout with. It has a rest timer, and it also has
 
 Again I wanted to do a basic project in react-native. To explore the boundries. I also wanted to make a app that I could personally use.
 
-{Provide a link to your YouTube demonstration.  It should be a 4-5 minute demo of the app running and a walkthrough of the code.}
-
-[Software Demo Video](http://youtube.link.goes.here)
+[Software Demo Video](https://youtu.be/pKaWEBtK_qE)
 
 # Development Environment
 
