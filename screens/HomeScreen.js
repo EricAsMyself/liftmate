@@ -1,9 +1,10 @@
 import React, {useState} from 'react'
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Button} from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Button, Image} from 'react-native';
 import { useNavigation } from '@react-navigation/core';
 import Workout from '../components/workouts'
 import WorkoutTop from '../components/workoutTop'
 import WorkoutRow from '../components/workoutRow'
+
 
 
 const data = [
@@ -66,7 +67,7 @@ const HomeScreen = () => {
             </View>
             <View style={styles.rowGap}>
                 <TouchableOpacity
-                    onPress={() => navigation.navigate('Workout')}
+                    onPress={() => navigation.navigate('Login')}
                     style={styles.button}
                     >
                     <Text>SignOut</Text>
@@ -82,23 +83,29 @@ const HomeScreen = () => {
                 <Text>Todays workout</Text>
                 </TouchableOpacity>
             </View>
-            <View style={styles.homeButton}>
+            {/* <View style={styles.homeButton}>
                 <TouchableOpacity
                 onPress={() => navigation.navigate('Settings')}
                 >
                 <Text>Settings</Text>
                 </TouchableOpacity>
-            </View>
+            </View> */}
 
 
             </ScrollView>
             <View style={styles.footer}>
-                <View style={styles.homeButton}>
+                <View style={{flexDirection: 'row'}}>
                     <TouchableOpacity
-                    onPress={() => navigation.navigate('WrkPck')}
-                    >
-                    <Text>Pick Workout</Text>
-                    
+                    onPress={() => navigation.navigate('Home')}>
+                        <Image source={require('../assets/profile.png')} style={{ width: 80, height: 80 }}></Image>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate('WrkPck')}>
+                        <Image source={require('../assets/weight.png')} style={{ width: 80, height: 80 }}></Image>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate('Settings')}>
+                        <Image source={require('../assets/settings.png')} style={{ width: 80, height: 80 }}></Image>
                     </TouchableOpacity>
                 </View>
             </View>

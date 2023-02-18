@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Button,Image , Animated} from 'react-native';
 import { useNavigation,} from '@react-navigation/core';
 import { Audio } from 'expo-av';
-import { getPull, getRest, getWork } from '../components/global';
+import { getPull, getRest, getWork} from '../components/global';
 // import Sound from 'react-native-sound';
 
 // var Sound = require('react-native-sound'); 
@@ -52,11 +52,10 @@ import WorkoutRow from '../components/workoutRow'
 
 
 const HomeScreen = () => {
-    const [refresh, setRefresh] = useState(false);
 
     useEffect(() => {
-      setRefresh(false);
-    }, [refresh]);
+      data = getPull();
+    });
 
     let data = getPull()
 

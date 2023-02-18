@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Button, TextInput} from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Button, TextInput, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/core';
 import { setRest, setWork } from '../components/global';
 
@@ -18,19 +18,36 @@ const HomeScreen = () => {
                 <Text>Back</Text>
                 </TouchableOpacity>
 
-
-            <View style={styles.inputContainer}>
-                <Text> Workout Time:</Text>
+            <ScrollView style={{height: '70%'}}>
+                <View style={styles.inputContainer}>
+                    <Text> Workout Time:</Text>
+                    <TextInput 
+                    placeholder='Workout Time'
+                    onChangeText={text => setWork(text)}
+                    style={styles.input}/>
+                    <Text>Rest Time</Text>
                 <TextInput 
-                placeholder='Workout Time'
-                onChangeText={text => setWork(text)}
-                style={styles.input}/>
-                <Text>Rest Time</Text>
-            <TextInput 
-                placeholder='Rest Time'
-                onChangeText={text => setRest(text)}
-                style={styles.input}/>
+                    placeholder='Rest Time'
+                    onChangeText={text => setRest(text)}
+                    style={styles.input}/>
 
+                </View>
+            </ScrollView>
+            <View style={styles.footer}>
+                <View style={{flexDirection: 'row'}}>
+                    <TouchableOpacity
+                    onPress={() => navigation.navigate('Home')}>
+                        <Image source={require('../assets/profile.png')} style={{ width: 80, height: 80 }}></Image>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate('WrkPck')}>
+                        <Image source={require('../assets/weight.png')} style={{ width: 80, height: 80 }}></Image>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate('Settings')}>
+                        <Image source={require('../assets/settings.png')} style={{ width: 80, height: 80 }}></Image>
+                    </TouchableOpacity>
+                </View>
             </View>
         </View>
     )

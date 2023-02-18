@@ -1,12 +1,14 @@
 import React, {useState} from 'react'
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Button, TextInput} from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Button, TextInput, Image} from 'react-native';
 import { useNavigation } from '@react-navigation/core';
-import { setRest, setWork, setWorkout } from '../components/global';
+import { setRest, setWork, setWorkout, getPPL} from '../components/global';
+import WorkoutRow from '../components/workoutRow'
 
 const HomeScreen = () => {
     const navigation = useNavigation()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const PPL = getPPL();
 
     return(
         <View>
@@ -19,32 +21,54 @@ const HomeScreen = () => {
                 <Text>Back</Text>
                 </TouchableOpacity>
 
-            <View>
+            <ScrollView style={{height: '70%'}}>
                 
                 <Text>
                     Here you can pick out the workout that you want to do.
                 </Text>
                     <TouchableOpacity
-                        onPress={setWorkout("PPL")}
+                        onPress={() => setWorkout("PPL")}
                         style={styles.button}
                         >
                         <Text>PPL</Text>
                     </TouchableOpacity>
-
+                    <ScrollView horizontal>
+                        <View style={styles.workoutformat}>
+                        {PPL.map(item => (
+                            <WorkoutRow id={item.id} weight={item.weight} sets={item.content} />
+                        ))}
+                        </View>
+                    </ScrollView>
                     <TouchableOpacity
-                        onPress={setWorkout("EMPTY")}
+                        onPress={() => setWorkout("BODY")}
                         style={styles.button}
                         >
                         <Text>Full Body</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity
-                        onPress={setWorkout("BODY")}
+                        onPress={() => setWorkout("EMPTY")}
                         style={styles.button}
                         >
                         <Text>Different Parts</Text>
                     </TouchableOpacity>
 
+            </ScrollView>
+            <View style={styles.footer}>
+                <View style={{flexDirection: 'row'}}>
+                    <TouchableOpacity
+                    onPress={() => navigation.navigate('Home')}>
+                        <Image source={require('../assets/profile.png')} style={{ width: 80, height: 80 }}></Image>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate('WrkPck')}>
+                        <Image source={require('../assets/weight.png')} style={{ width: 80, height: 80 }}></Image>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate('Settings')}>
+                        <Image source={require('../assets/settings.png')} style={{ width: 80, height: 80 }}></Image>
+                    </TouchableOpacity>
+                </View>
             </View>
         </View>
     )
@@ -146,5 +170,11 @@ const styles = StyleSheet.create({
 
         backgroundColor: '#0082F9',
         height: '17%'
+    },
+    workoutformat: {
+        backgroundColor: 'gray',
+        borderRadius: 15,
+        height: 440,
+        width: 400,
     }
 })

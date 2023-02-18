@@ -68,16 +68,61 @@ export const setRest = (value) => {
     {id: 1,target: 1, weight: 1, reps: 1},]
     },
   ];
+
+  let fullBodyWorkout = [
+    { id: 1, weight: "Squat (Barbell)", content: [
+      { id: 1, weight: 135, reps: 12 },
+      { id: 2, weight: 185, reps: 10 },
+      { id: 3, weight: 205, reps: 8 },
+      { id: 4, weight: 225, reps: 6 }
+    ]},
+    { id: 2, weight: "Bench Press (Barbell)", content: [
+      { id: 1, weight: 135, reps: 12 },
+      { id: 2, weight: 185, reps: 10 },
+      { id: 3, weight: 205, reps: 8 },
+      { id: 4, weight: 225, reps: 6 }
+    ]},
+    { id: 3, weight: "Bent-Over Row (Barbell)", content: [
+      { id: 1, weight: 95, reps: 12 },
+      { id: 2, weight: 115, reps: 10 },
+      { id: 3, weight: 135, reps: 8 },
+      { id: 4, weight: 155, reps: 6 }
+    ]},
+    { id: 4, weight: "Shoulder Press (Dumbbell)", content: [
+      { id: 1, weight: 35, reps: 12 },
+      { id: 2, weight: 45, reps: 10 },
+      { id: 3, weight: 55, reps: 8 },
+      { id: 4, weight: 65, reps: 6 }
+    ]},
+    { id: 5, weight: "Bicep Curl (Dumbbell)", content: [
+      { id: 1, weight: 20, reps: 12 },
+      { id: 2, weight: 25, reps: 10 },
+      { id: 3, weight: 30, reps: 8 },
+      { id: 4, weight: 35, reps: 6 }
+    ]},
+    { id: 6, weight: "Tricep Extension (Dumbbell)", content: [
+      { id: 1, weight: 20, reps: 12 },
+      { id: 2, weight: 25, reps: 10 },
+      { id: 3, weight: 30, reps: 8 },
+      { id: 4, weight: 35, reps: 6 }
+    ]}
+  ];
+
+export const getPPL = () => {
+  return PPL;
+}
 export const setWorkout = (value) => {
     if (value == "PPL") {
-      console.log('begin')
+      console.log(value)
       data = PPL;
     }
     if (value == "EMPTY"){
+      console.log(value)
       data = Empty;
     }
     if (value == "BODY") {
-      data = Empty;
+      console.log(value)
+      data = fullBodyWorkout;
     }
   };
 

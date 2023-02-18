@@ -15,12 +15,12 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        {/* <Stack.Screen options={{headerShown: false}} name="Login" component={LoginScreen} /> */}
         <Stack.Screen options={{headerShown: false}} name="Login" component={LoginScreen} />
         <Stack.Screen options={{headerShown: false}} name="Home" component={HomeScreen} />
         <Stack.Screen options={{headerShown: false}} name="Workout" component={WorkoutScreen} />
         <Stack.Screen options={{headerShown: false}} name="Settings" component={SettingsScreen} />
         <Stack.Screen options={{headerShown: false}} name="WrkPck" component={WorkPickScreen} />
+
       </Stack.Navigator>
     </NavigationContainer>
   );
