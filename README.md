@@ -1,10 +1,10 @@
 # Overview
 
-{Important!  Do not say in this section that this is college assignment.  Talk about what you are trying to accomplish as a software engineer to further your learning.}
+I've worked a little with react-native in the past but I wanted something that would push my knowledge. I also wanted to work on building better Objects in javascript, which this has helped me to do.
 
-{Provide a description of your app.  Describe how to use the app.}
+This App is meant to have you workout with. It has a rest timer, and it also has buttons to click to keep track of the workout.
 
-{Describe your purpose for creating this app.}
+Again I wanted to do a basic project in react-native. To explore the boundries. I also wanted to make a app that I could personally use.
 
 {Provide a link to your YouTube demonstration.  It should be a 4-5 minute demo of the app running and a walkthrough of the code.}
 
@@ -12,19 +12,18 @@
 
 # Development Environment
 
-{Describe the tools that you used to develop the app}
+I used React-Native with Expo Go.
 
-{Describe the programming language that you used and any libraries.}
+I used a variatie of packages with it. including stacks, ands sounds. in react native or expo. I also used. Firebase for the backend, as it is free, for authentications.
 
 # Useful Websites
 
-{Make a list of websites that you found helpful in this project}
-* [Web Site Name](http://url.link.goes.here)
-* [Web Site Name](http://url.link.goes.here)
+* [React-Native](https://reactnative.dev)
+* [Expo Go](https://expo.dev/client)
 
 # Future Work
 
-{Make a list of things that you need to fix, improve, and add in the future.}
-* Item 1
-* Item 2
-* Item 3
+* Personal workout
+* Background Timer
+* UI
+* Save to device with graphs.
