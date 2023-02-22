@@ -4,9 +4,11 @@ import { StyleSheet, Text, View, TouchableOpacity, TextInput} from 'react-native
 const HomeScreen = (props) => {
 
     const [backgroundColor, setBackgroundColor] = useState('white');
+    const [borderColor, setBorderColor] = useState('#2AB7CA');
 
     const handlePress = () => {
-      setBackgroundColor(backgroundColor === 'white' ? '#0782F9' : 'white');
+      setBackgroundColor(backgroundColor === 'white' ? '#FED766' : 'white');
+      setBorderColor(borderColor === '#2AB7CA' ? '#FED766': '#2AB7CA');
     };
 
     return(
@@ -23,7 +25,7 @@ const HomeScreen = (props) => {
                 style={styles.input}/>
 
 
-            <TouchableOpacity onPress={handlePress} style={[styles.button, { backgroundColor }]} />
+            <TouchableOpacity onPress={handlePress} style={[styles.button, { backgroundColor }, {borderColor}]} />
         </View>
     )
 }
@@ -37,7 +39,7 @@ const styles = StyleSheet.create({
         height: 40,
         borderRadius: 100,
         borderWidth: 7,
-        borderColor: '#0782F9',
+        // borderColor: '#2AB7CA',
         marginRight: 10,
     },
     row:{

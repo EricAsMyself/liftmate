@@ -2,14 +2,22 @@ import React, {useState} from 'react'
 import { StyleSheet, Text, View, TouchableOpacity, TextInput} from 'react-native';
 import WorkoutTop from './workoutTop'
 import Workout from './workouts'
+import { setWork } from './global';
 
 const WorkoutRow = (props) => {
 
     const [backgroundColor, setBackgroundColor] = useState('white');
+    const [workout, setWorkout] = useState(props.sets)
 
     const handlePress = () => {
       setBackgroundColor(backgroundColor === 'white' ? '#0782F9' : 'white');
     };
+    const addWeight = (newObj) => {
+        const lastItemId = workout.slice(-1)[0].id;
+        const newId = lastItemId + 1;
+        const newWorkout = [...workout, { id: newId, count: newId, ...newObj }];
+        setWorkout(newWorkout);
+      };
 
     return(
                 <View>
@@ -21,15 +29,15 @@ const WorkoutRow = (props) => {
                             <WorkoutTop weight={"Weight"} reps={"Reps"} target={"Target"} id={"Count"}/>
                         </View>
                         <View>
-                            {props.sets.map(innerItem => (
+                            {workout.map(innerItem => (
                                 <View>
                                     <Workout id={innerItem.id} target={innerItem.target} weight={innerItem.weight} reps={innerItem.reps}/>
                                 </View>
                             ))}
                         </View>
-                        {/* <TouchableOpacity onPress={() => addSnack({id:4, weight:'new Workout', content: [{id: 6, weight: 20, reps: 10}] })} style={{backgroundColor:'white', padding: 10}} >
+                        <TouchableOpacity onPress={() => addWeight({target: 1, weight: 20, reps: 10})} style={{backgroundColor:'white', padding: 10}} >
                             <Text> Add weight</Text>
-                        </TouchableOpacity> */}
+                        </TouchableOpacity>
                         <View style={styles.gap}>
                     </View>
                 </View>

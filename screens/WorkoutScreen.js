@@ -3,53 +3,11 @@ import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Button,Image , An
 import { useNavigation,} from '@react-navigation/core';
 import { Audio } from 'expo-av';
 import { getPull, getRest, getWork} from '../components/global';
-// import Sound from 'react-native-sound';
-
-// var Sound = require('react-native-sound'); 
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import Workout from '../components/workouts'
 import WorkoutTop from '../components/workoutTop'
 import WorkoutRow from '../components/workoutRow'
-
-
-
-  
-// const data = [
-
-//     { id: 1, weight: "DeadLift (Barbell)", content:[
-//     {id: 1,target: 1, weight: 240, reps: 1},
-//     {id: 2,target: 1, weight: 240, reps: 1},
-//     {id: 3,target: 1, weight: 240, reps: 1},]
-//     },
-//     { id: 1, weight: "Let Pulldown", content:[
-//     {id: 1, weight: 95, reps: 12},
-//     {id: 2, weight: 90, reps: 11},
-//     {id: 3, weight: 90, reps: 10},
-//     {id: 4, weight: 80, reps: 10},]
-//     },
-//     { id: 1, weight: "Chest Supported Row", content:[
-//     {id: 1, weight: 45, reps: 12},
-//     {id: 2, weight: 45, reps: 11},
-//     {id: 1, weight: 45, reps: 12},
-//     {id: 2, weight: 45, reps: 11},]
-//     },
-//     { id: 1, weight: "Face pull", content:[
-//     {id: 1, weight: 1, reps: 12},
-//     {id: 2, weight: 100, reps: 11},
-//     {id: 3, weight: 20, reps: 10},]
-//     },
-//     { id: 1, weight: "Hammer Curl", content:[
-//     {id: 1, weight: 1, reps: 12},
-//     {id: 2, weight: 100, reps: 11},
-//     {id: 3, weight: 20, reps: 10},]
-//     },
-//     { id: 1, weight: "Bicep Curl (Dumbell)", content:[
-//     {id: 1, weight: 1, reps: 12},
-//     {id: 2, weight: 100, reps: 11},
-//     {id: 3, weight: 20, reps: 10},]
-//     }
-//   ];
-
 
 const HomeScreen = () => {
 
@@ -67,6 +25,26 @@ const HomeScreen = () => {
     const [toggleRest, setToggleRest] = useState(false)
 
     const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
+    const [totalSeconds, setTotalSeconds] = useState(0);
+
+
+
+    useEffect(() => {
+        const intervalId = setInterval(() => {
+        setTotalSeconds((prevSeconds) => prevSeconds + 1);
+        }, 1000);
+
+        return () => clearInterval(intervalId);
+    }, []);
+
+    const formatTime = (timeInSeconds) => {
+        const minutes = Math.floor(timeInSeconds / 60);
+        const seconds = timeInSeconds % 60;
+        return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    };
+
+
 
     const today = new Date();
     const day = daysOfWeek[today.getDay()];
@@ -120,22 +98,41 @@ const HomeScreen = () => {
       };
     }, [seconds]);
 
-
-
     const addSnack = (addedFood) => {
         setData([ ...datalist,  addedFood]);
       };
-    const addSet = (addedFood) => {
-        setData([ ...datalist,  addedFood]);
-    };
 
     const [backgroundColor, setBackgroundColor] = useState('white');
 
     const handlePress = () => {
-      setBackgroundColor(backgroundColor === 'white' ? '#0782F9' : 'white');
+      setBackgroundColor(backgroundColor === 'white' ? '#2AB7CA' : 'white');
     };
+
     const [currentTime, setCurrentTime] = useState(new Date());
-  
+
+    const getObjectFromAsyncStorage = async (key) => {
+        try {
+          const objectString = await AsyncStorage.getItem(key);
+          const object = JSON.parse(objectString);
+          return object;
+        } catch (e) {
+          console.log(`Error retrieving object from AsyncStorage: ${e}`);
+        }
+      };
+
+    const handleFinnish = async () => {
+        const myDataString = JSON.stringify(data);
+        await AsyncStorage.setItem('myDataKey', myDataString);
+
+        let TotalTime = await getObjectFromAsyncStorage('Time');
+        
+        const newTotalTime = JSON.stringify((TotalTime + totalSeconds));
+        await AsyncStorage.setItem('Time', newTotalTime);
+        // await AsyncStorage.setItem('Time', "0");
+        console.log(TotalTime)
+        console.log(newTotalTime)
+        navigation.navigate('Home')
+    }
 
 
     useEffect(() => {
@@ -148,19 +145,34 @@ const HomeScreen = () => {
   
     const hourDegrees = ((seconds/60)*360);
 
+    
+
     return(
         <View>
             <View style={styles.top}>
             </View>
             <View style={styles.rowGap}>
                
-                <TouchableOpacity
+                {/* <TouchableOpacity
                 title="Home"
                 onPress={() => navigation.navigate('Home')}
                 style={styles.homeButton}
                 >
                 <Text>Back</Text>
+                </TouchableOpacity> */}
+
+                <TouchableOpacity
+                title="Home"
+                onPress={handleFinnish}
+                style={styles.homeButton}
+                >
+                <Text>Finnish</Text>
                 </TouchableOpacity>
+                <View>
+                    <Text style={{ fontSize: 32, textAlign: 'center' }}>
+                        {formatTime(totalSeconds)}
+                    </Text>
+                </View>
                 
                 <Text style={styles.middleIMG}>{day}</Text>
 
@@ -208,7 +220,7 @@ export default HomeScreen
 const styles = StyleSheet.create({
     homeButton: {
         BackgroundColor: 'white',
-        borderColor: '#0082F9',
+        borderColor: '#2AB7CA',
         borderWidth: 5,
         marginTop: 10,
         marginLeft: 10,
@@ -219,7 +231,7 @@ const styles = StyleSheet.create({
     },
     top:{
         paddingBottom: 50,
-        backgroundColor: '#0782F9'
+        backgroundColor: 'white'
 
     },
     rowGap:{
@@ -254,7 +266,7 @@ const styles = StyleSheet.create({
         height: 40,
         borderRadius: 100,
         borderWidth: 7,
-        borderColor: '#0782F9',
+        borderColor: '#2AB7CA',
         marginRight: 10,
     },
     add:
@@ -263,7 +275,7 @@ const styles = StyleSheet.create({
         height: 50,
         borderRadius: 100,
         borderWidth: 7,
-        borderColor: '#0782F9',
+        borderColor: '#2AB7CA',
         textAlign: 'center',
         justifyContent: 'flex-end',
         marginLeft: 'auto',
@@ -280,7 +292,7 @@ const styles = StyleSheet.create({
         marginTop: 25
     },
     footer: {
-        backgroundColor: "#0782F9",
+        backgroundColor: "#2AB7CA",
         height: "14%",
         flexDirection: 'row'
     },

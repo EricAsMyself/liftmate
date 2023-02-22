@@ -33,11 +33,6 @@ const HomeScreen = () => {
                         <Text>PPL</Text>
                     </TouchableOpacity>
                     <ScrollView horizontal>
-                        <View style={styles.workoutformat}>
-                        {PPL.map(item => (
-                            <WorkoutRow id={item.id} weight={item.weight} sets={item.content} />
-                        ))}
-                        </View>
                     </ScrollView>
                     <TouchableOpacity
                         onPress={() => setWorkout("BODY")}
