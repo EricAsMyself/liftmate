@@ -3,15 +3,18 @@ import { StyleSheet, Text, View, TouchableOpacity, TextInput} from 'react-native
 import WorkoutTop from './workoutTop'
 import Workout from './workouts'
 import { setWork } from './global';
+import { Entypo } from '@expo/vector-icons'
 
 const WorkoutRow = (props) => {
 
     const [backgroundColor, setBackgroundColor] = useState('white');
     const [workout, setWorkout] = useState(props.sets)
+    const [workoutName, setworkoutName] = useState(props.weight)
 
-    const handlePress = () => {
-      setBackgroundColor(backgroundColor === 'white' ? '#0782F9' : 'white');
+    const changeName = () => {
+      setworkoutName('ho')
     };
+
     const addWeight = (newObj) => {
         const lastItemId = workout.slice(-1)[0].id;
         const newId = lastItemId + 1;
@@ -22,8 +25,14 @@ const WorkoutRow = (props) => {
     return(
                 <View>
                     <View key={props.id}  style={styles.row}>
-                        <Text  style={styles.rowElement} >{props.weight}</Text>
+                        <Text  style={styles.rowElement} >{workoutName}</Text>
                         <Text style={styles.rowElement}></Text>
+
+                        <TouchableOpacity
+                            onPress={() => changeName()}>
+                        <Entypo name="dots-three-horizontal" size={24} color="black" style={{marginRight: "5%", marginTop: '3%'}}/>
+                        </TouchableOpacity>
+
                         </View>
                         <View>
                             <WorkoutTop weight={"Weight"} reps={"Reps"} target={"Target"} id={"Count"}/>

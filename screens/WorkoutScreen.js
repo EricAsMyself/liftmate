@@ -128,7 +128,11 @@ const HomeScreen = () => {
         
         const newTotalTime = JSON.stringify((TotalTime + totalSeconds));
         await AsyncStorage.setItem('Time', newTotalTime);
-        // await AsyncStorage.setItem('Time', "0");
+
+        let workCounter = await getObjectFromAsyncStorage('Counter');
+        const newCounter = JSON.stringify((workCounter + 1));
+        await AsyncStorage.setItem('Counter', newCounter);
+
         console.log(TotalTime)
         console.log(newTotalTime)
         navigation.navigate('Home')

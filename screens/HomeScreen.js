@@ -3,208 +3,71 @@ import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Button, Image} fr
 import { LineChart } from 'react-native-chart-kit';
 import { useNavigation ,useIsFocused } from '@react-navigation/core';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Ionicons, AntDesign } from '@expo/vector-icons';
+import { FontAwesome5 } from '@expo/vector-icons';
 import OswaldFont from '../assets/oswald.ttf';
 import Workout from '../components/workouts'
 import WorkoutTop from '../components/workoutTop'
 import WorkoutRow from '../components/workoutRow'
+import { setWork } from '../components/global';
+import Home from '../components/Home'
+import Settings from '../components/Settings'
+import Search from '../components/Search'
 
 
-const HomeScreen = () => {
-    const isFocused = useIsFocused();
-    const [time, setTime] = useState(0)
-    const [timeString, setTimeString] = useState("Seconds")
-    const workouts = 3;
-    const name = "john";
-
-    const data = {
-        labels: ['Jun'],
-        datasets: [
-          {
-            data: [43],
-            color: (opacity = 1) => `rgba(255, 99, 71, ${opacity})`, // optional color customization
-            strokeWidth: 2 // optional line width customization
-          }
-        ]
-      };
-
-    
+const HomeScreen = () => {    
     const navigation = useNavigation()
-    const [datalist, setData] = useState(data)
-
-    const addSnack = (addedFood) => {
-        setData([ ...datalist,  addedFood]);
-      };
-    const addSet = (addedFood) => {
-        setData([ ...datalist,  addedFood]);
-    };
-
-    const [backgroundColor, setBackgroundColor] = useState('white');
-
-    const handlePress = () => {
-      setBackgroundColor(backgroundColor === 'white' ? '#0782F9' : 'white');
-    };
-
-    const getObjectFromAsyncStorage = async (key) => {
-        try {
-          const objectString = await AsyncStorage.getItem(key);
-          const object = JSON.parse(objectString);
-          return object;
-        } catch (e) {
-          console.log(`Error retrieving object from AsyncStorage: ${e}`);
-          throw e;
-        }
-      };
-      
-    // getObjectFromAsyncStorage('myDataKey')
-    // .then((myObject) => {
-    //     console.log(myObject);
-    // })
-    // .catch((e) => {
-    //     console.log(`Error: ${e}`);
-    // });
-    const [myObject, setMyObject] = useState(null);
-
-    const handleButtonPress = async () => {
-      const object = await getObjectFromAsyncStorage('myDataKey');
-      setMyObject(object);
-      console.log(object)
-    };
-
-    useEffect(() => {
-        const fetchObject = async () => {
-          const object = await getObjectFromAsyncStorage('Time');
-          if (object > 86400) {
-            setTime(Math.round(object / 86400));
-            setTimeString('Days');
-          } else if (object > 3600) {
-            setTime(Math.round(object / 3600));
-            setTimeString('Hours');
-          } else if (object > 60) {
-            setTime(Math.round(object / 60));
-            setTimeString('Minutes');
-          } else if (object > -1) {
-            setTime(Math.round(object / 1));
-            setTimeString('Seconds');
-          }
-          console.log(object);
-          console.log(timeString);
-        };
     
-        if (isFocused) {
-          fetchObject();
-        }
-      }, [isFocused]);
 
+    const [activeComponent, setActiveComponent] = useState('Home');
+    const [backgroundColor1, setBackgroundColor1] = useState('darkgray');
+    const [backgroundColor2, setBackgroundColor2] = useState('transparent');
+    const [backgroundColor3, setBackgroundColor3] = useState('transparent');
+    const [logo1, setlogo1] = useState('white');
+    const [logo2, setlogo2] = useState("gray");
+    const [logo3, setlogo3] = useState("gray");
+
+    const handleComponentChange = (componentName) => {
+      setActiveComponent(componentName);
+      setBackgroundColor1(componentName === 'Home' ? 'darkgray' : 'transparent');
+      setBackgroundColor2(componentName === 'Search' ? 'darkgray' : 'transparent');
+      setBackgroundColor3(componentName === 'Profile' ? 'darkgray' : 'transparent');
+
+      setlogo1(componentName === 'Home' ? 'white' : 'gray');
+      setlogo2(componentName === 'Search' ? 'white' : 'gray');
+      setlogo3(componentName === 'Profile' ? 'white' : 'gray');
+    };
 
     return(
         <View
         style={styles.main}>
             <View style={styles.top}>
             </View>
-            <View style={styles.rowGap}>
-                <TouchableOpacity
-                    onPress={() => navigation.navigate('Login')}
-                    style={styles.button}
-                    >
-                    <Text>SignOut</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    onPress={handleButtonPress}
-                    style={styles.button}
-                    >
-                    <Text>Remove</Text>
-                </TouchableOpacity>
-                <Text style={styles.middleIMG}>IMG</Text>
-            </View>
+            <ScrollView style={{height: '80%'}}>
 
-            <Text style={{ fontFamily: 'OswaldFont', fontSize: 40}}>Hello {name}</Text>
-            <Text style={{ fontFamily: 'OswaldFont', fontSize: 24}}>Here is your workouts for today</Text>
-
-            <ScrollView style={{height: '70%'}}>
-
-            <View style={{ flexDirection: 'row' }}>
-                    <View style={styles.homeButton}>
-                        <TouchableOpacity
-                        onPress={() => navigation.navigate('Workout')}
-                        >
-                        <Text style={{ fontFamily: 'OswaldFont', fontSize: 30}}>Current Workout</Text>
-
-                        <Text style={{ fontFamily: 'OswaldFont', fontSize: 20}}> Start Now!</Text>
-                        </TouchableOpacity>
-                    </View>
-
-                    <View style={{width: "90%"}}>
-                        <View style={styles.homeButton}>
-                            <Text style={{ fontFamily: 'OswaldFont', fontSize: 30}}> ⏱️ </Text>
-                            <Text style={{ fontFamily: 'OswaldFont', fontSize: 20}}>Workout Time:</Text>
-                            <Text>{time}</Text>
-                            <Text>{timeString}</Text>
-                        </View>
-                        <View style={styles.homeButton}>
-                            <Text style={{ fontFamily: 'OswaldFont', fontSize: 30}}>Workout🔥🔥🔥</Text>
-                            <Text style={{ fontFamily: 'OswaldFont', fontSize: 40}}>{workouts}</Text>
-                            <Text style={{ fontFamily: 'OswaldFont', fontSize: 20}}>Total completed workouts</Text>
-                        </View>
-                    </View>
-
-                </View>
-
-                <View style={{ flexDirection: 'row' }}>
-                <View>
-                    <LineChart
-                        data={data}
-                        width={400}
-                        height={200}
-                        
-                        chartConfig={{
-                        backgroundColor: '#FE4A49',
-                        backgroundGradientFrom: '#FE4A49',
-                        backgroundGradientTo: '#FED766',
-                        decimalPlaces: 2, // optional, defaults to 2dp
-                        color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`, // optional color customization
-                        labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`, // optional label color customization
-                        style: {
-                            borderRadius: 16,
-
-                        },
-                        propsForDots: {
-                            r: '6',
-                            strokeWidth: '2',
-                            stroke: '#FED766'
-                        }
-                        }}
-                        bezier
-                        style={{
-                        marginVertical: 8,
-                        borderRadius: 16,
-                        marginHorizontal: 5,
-
-                        }}
-                    />
-                    </View>
-                    {/* <View style={styles.workoutstodo}>
-                        <Text>Hello</Text>
-                    </View> */}
-                    {/* <View style={styles.workoutstodo}>
-                        <Text>Hello</Text>
-                    </View> */}
-                </View>
-
+            {activeComponent === 'Home' && <Home />}
+            {activeComponent === 'Search' && <Search />}
+            {activeComponent === 'Profile' && <Settings />}
 
             </ScrollView>
             <View style={styles.footer}>
                 <View style={{flexDirection: 'row'}}>
+
                     <TouchableOpacity
-                    onPress={() => navigation.navigate('Home')}>
-                        <Image source={require('../assets/profile.png')} style={{ width: 80, height: 80 }}></Image>
+                    style={[styles.bottomItem, { backgroundColor: backgroundColor1 }]}
+                    onPress={() => handleComponentChange("Home")}>
+                        <AntDesign name="home" size={55} color={logo1} />
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                        style={[styles.bottomItem, { backgroundColor: backgroundColor2 }]}
+                        onPress={() => handleComponentChange("Search")}>
+                            <AntDesign name="search1" size={55} color={logo2} />
                     </TouchableOpacity>
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('WrkPck')}>
-                        <Image source={require('../assets/weight.png')} style={{ width: 80, height: 80 }}></Image>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        onPress={() => navigation.navigate('Settings')}>
-                        <Image source={require('../assets/settings.png')} style={{ width: 80, height: 80 }}></Image>
+                    style={[styles.bottomItem, { backgroundColor: backgroundColor3 }]}
+                        onPress={() => handleComponentChange("Profile")}>
+                            <AntDesign name="user" size={55} color={logo3} />
                     </TouchableOpacity>
                 </View>
             </View>
@@ -216,12 +79,18 @@ export default HomeScreen
 
 
 const styles = StyleSheet.create({
+    bottomItem:{
+        paddingHorizontal: '10%', 
+        paddingVertical: '3%',
+        paddingBottom: '20%'
+
+    },
     main: {
         backgroundColor: "#E6E6EA",
     },
     top:{
         paddingBottom: 50,
-        backgroundColor: '#F4F4F8'
+        backgroundColor: '#E6E6EA'
 
     },
     workoutstodo:{
@@ -317,7 +186,7 @@ const styles = StyleSheet.create({
         marginTop: 25
     },
     footer: {
-        backgroundColor: '#E6E6EA',
+        // backgroundColor: '#E6E6EA',
         height: '17%'
     }
 })
