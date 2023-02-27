@@ -26,12 +26,15 @@ const HomeScreen = () => {
                 <Text>
                     Here you can pick out the workout that you want to do.
                 </Text>
+
                     <TouchableOpacity
                         onPress={() => setWorkout("PPL")}
                         style={styles.button}
                         >
                         <Text>PPL</Text>
+                        
                     </TouchableOpacity>
+
                     <ScrollView horizontal>
                     </ScrollView>
                     <TouchableOpacity

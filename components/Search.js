@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Button, TextInput
 import { useNavigation } from '@react-navigation/core';
 import { setRest, setWork, setWorkout, getPPL} from '../components/global';
 import WorkoutRow from '../components/workoutRow'
+import { Ionicons, AntDesign } from '@expo/vector-icons';
 
 const HomeScreen = () => {
     const navigation = useNavigation()
@@ -11,33 +12,45 @@ const HomeScreen = () => {
     const PPL = getPPL();
 
     return(
-        <View>
+        <View style={{backgroundColor: 'E6E6EA'}}>
 
 
-                
-                <Text>
-                    Here you can pick out the workout that you want to do.
+                <Text style={{fontSize: 30,marginLeft: 15,fontWeight: 'bold',}}>
+                    Current Workout
+                </Text>      
+                <TouchableOpacity
+                        onPress={() => setWorkout("PPL")}
+                        style={styles.curentWorkout}
+                        >
+                        <Text>The Basics</Text>
+                        <Image source={require('../assets/PPL.jpg')} style={styles.workoutImage}></Image>
+                </TouchableOpacity>
+                <Text style={{fontSize: 30,marginLeft: 15,fontWeight: 'bold',}}>
+                    Workouts
                 </Text>
                     <TouchableOpacity
                         onPress={() => setWorkout("PPL")}
-                        style={styles.button}
+                        style={styles.workout}
                         >
-                        <Text>PPL</Text>
+                        <Text>The Basics</Text>
+                        <Image source={require('../assets/PPL.jpg')} style={styles.workoutImage}></Image>
                     </TouchableOpacity>
 
 
                     <TouchableOpacity
                         onPress={() => setWorkout("BODY")}
-                        style={styles.button}
+                        style={styles.workout}
                         >
-                        <Text>Full Body</Text>
+                        <Text>ChatGPT</Text>
+                        <Image source={require('../assets/GPT.png')} style={styles.workoutImage}></Image>
                     </TouchableOpacity>
 
                     <TouchableOpacity
                         onPress={() => setWorkout("EMPTY")}
-                        style={styles.button}
+                        style={styles.workout}
                         >
-                        <Text>Different Parts</Text>
+                        <Text>Liver Kings</Text>
+                        <Image source={require('../assets/LVK.png')} style={styles.workoutImage}></Image>
                     </TouchableOpacity>
 
 
@@ -49,6 +62,46 @@ export default HomeScreen
 
 
 const styles = StyleSheet.create({
+    curentWorkout: {
+        flexDirection: 'row',
+        margin: 10,
+        backgroundColor: '#F4F4F8',
+        borderRadius: 10,
+        height: 300,
+        shadowColor: '#000000',
+        shadowOffset: {
+          width: 0,
+          height: 1,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
+        },
+    workout: {
+        flexDirection: 'row',
+        margin: 10,
+        backgroundColor: '#F4F4F8',
+        borderRadius: 10,
+        height: 145,
+        shadowColor: '#000000',
+        shadowOffset: {
+          width: 0,
+          height: 1,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
+    },
+    workoutImage:{
+        marginTop: 'auto',
+        marginBottom:'auto',
+        marginLeft: 'auto',
+        marginRight: 10,
+        borderRadius: 10,
+        width: 130,
+        height: 130,
+    },
+    
     inputContainer:{
         marginTop: 100,
         marginLeft: 30,

@@ -1,6 +1,10 @@
 let Work = 60;
 
 
+let fname = 'NO NAME'
+let lname = "NO NAME"
+
+
 export const setWork = (value) => {
   Work = value;
 };

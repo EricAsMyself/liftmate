@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Button, TextInput, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/core';
 import { setRest, setWork } from '../components/global';
+import { Ionicons, AntDesign } from '@expo/vector-icons';
 
 const HomeScreen = () => {
     const navigation = useNavigation()
@@ -9,6 +10,14 @@ const HomeScreen = () => {
 
     return(
         <View>
+                <View style={{marginLeft: 'auto', marginRight: 'auto',marginTop: 50,backgroundColor: 'gray', borderRadius: 100, padding: 13}}>
+                    <AntDesign name="user" size={55} color='black' />
+                </View>
+                <View style={{marginLeft: 'auto', marginRight: 'auto',marginTop: 10}}>
+                    <Text>fname</Text>
+                    <Text>Lname</Text>
+                </View>
+
                 <View style={styles.inputContainer}>
                     <Text> Workout Time:</Text>
                     <TextInput 
