@@ -67,25 +67,10 @@ const HomeScreen = () => {
       };
     
 
-  //  let myGraph = getObjectFromAsyncStorage('mainGraph')
-  //  console.log(myGraph)
-
-  // useEffect(async () => {
-  //   let myGraphData = await getObjectFromAsyncStorage('mainGraph');
-  //   if (!myGraphData) {
-  //     myGraphData = { mon: 0, tue: 0, wen: 0, thu: 0, fri: 0, sat: 0, sun: 0 };
-  //   } else {
-  //     for (const key in myGraphData) {
-  //       if (myGraphData.hasOwnProperty(key) && (myGraphData[key] === undefined || myGraphData[key] === null)) {
-  //         myGraphData[key] = 0;
-  //       }
-  //     }
-  //   }
-  //   setMyGraph(myGraphData);
-  // }, []);
-
   useEffect(() => {
     const fetchData = async () => {
+      let myGraph = {0: 0, 1: 1, 2:10, 3:0, 4:0, 5:0, 6:0}
+      await AsyncStorage.setItem('mainGraph', JSON.stringify(myGraph));
       const myGraphData = await getObjectFromAsyncStorage('mainGraph');
       setMyGraph(myGraphData);
     };
@@ -93,17 +78,6 @@ const HomeScreen = () => {
     fetchData();
   }, [navigation]);
 
-    
-    // const data = {
-    //   labels: ['Mon','Tue','Wen','Thu','Fri','Sat','Sun'],
-    //   datasets: [
-    //     {
-    //       data: [myGraph[0] ,myGraph[1],myGraph[2],myGraph[3],myGraph[4],myGraph[5],myGraph[6]],
-    //       color: (opacity = 1) => `rgba(255, 99, 71, ${opacity})`, // optional color customization
-    //       strokeWidth: 2 // optional line width customization
-    //     }
-    //   ]
-    // };
     const data = useMemo(() => ({
       labels: ['Mon', 'Tue', 'Wen', 'Thu', 'Fri', 'Sat', 'Sun'],
       datasets: [
@@ -229,28 +203,6 @@ const HomeScreen = () => {
                     />
                     </View>
                 </View>
-
-            {/* <View style={styles.footer}>
-                <View style={{flexDirection: 'row'}}>
-
-                    <TouchableOpacity
-                    style={{paddingHorizontal: '10%', paddingVertical: '3%',backgroundColor:'darkgray', paddingBottom: '20%'}}
-                    onPress={() => navigation.navigate('Home')}>
-                        <AntDesign name="home" size={55} color="white" />
-                    </TouchableOpacity>
-
-                    <TouchableOpacity
-                    style={{paddingHorizontal: '10%'}}
-                        onPress={() => navigation.navigate('WrkPck')}>
-                            <AntDesign name="search1" size={55} color="gray" />
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                    style={{paddingHorizontal: '10%'}}
-                        onPress={() => navigation.navigate('Settings')}>
-                            <AntDesign name="user" size={55} color="gray" />
-                    </TouchableOpacity>
-                </View>
-            </View> */}
         </View>
     )
 }
