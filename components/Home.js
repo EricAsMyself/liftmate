@@ -1,7 +1,7 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useMemo} from 'react'
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Button, Image} from 'react-native';
 import { LineChart } from 'react-native-chart-kit';
-import { useNavigation ,useIsFocused } from '@react-navigation/core';
+import { useNavigation ,useIsFocused , useFocusEffect} from '@react-navigation/core';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Ionicons, AntDesign } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
@@ -30,16 +30,11 @@ const HomeScreen = () => {
     const [workouts, setWorkouts] = useState(0)
     const name = "John";
 
-    const data = {
-        labels: ['Jun'],
-        datasets: [
-          {
-            data: [43],
-            color: (opacity = 1) => `rgba(255, 99, 71, ${opacity})`, // optional color customization
-            strokeWidth: 2 // optional line width customization
-          }
-        ]
-      };
+
+
+
+
+
 
     
     const navigation = useNavigation()
@@ -53,6 +48,8 @@ const HomeScreen = () => {
     };
 
     const [backgroundColor, setBackgroundColor] = useState('white');
+
+    const [myGraph, setMyGraph] = useState({0: 10, 1: 11, 2:10, 3:11, 4:10, 5:11, 6:10})
 
     const handlePress = () => {
       setBackgroundColor(backgroundColor === 'white' ? '#0782F9' : 'white');
@@ -68,7 +65,56 @@ const HomeScreen = () => {
           throw e;
         }
       };
-      
+    
+
+  //  let myGraph = getObjectFromAsyncStorage('mainGraph')
+  //  console.log(myGraph)
+
+  // useEffect(async () => {
+  //   let myGraphData = await getObjectFromAsyncStorage('mainGraph');
+  //   if (!myGraphData) {
+  //     myGraphData = { mon: 0, tue: 0, wen: 0, thu: 0, fri: 0, sat: 0, sun: 0 };
+  //   } else {
+  //     for (const key in myGraphData) {
+  //       if (myGraphData.hasOwnProperty(key) && (myGraphData[key] === undefined || myGraphData[key] === null)) {
+  //         myGraphData[key] = 0;
+  //       }
+  //     }
+  //   }
+  //   setMyGraph(myGraphData);
+  // }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const myGraphData = await getObjectFromAsyncStorage('mainGraph');
+      setMyGraph(myGraphData);
+    };
+  
+    fetchData();
+  }, [navigation]);
+
+    
+    // const data = {
+    //   labels: ['Mon','Tue','Wen','Thu','Fri','Sat','Sun'],
+    //   datasets: [
+    //     {
+    //       data: [myGraph[0] ,myGraph[1],myGraph[2],myGraph[3],myGraph[4],myGraph[5],myGraph[6]],
+    //       color: (opacity = 1) => `rgba(255, 99, 71, ${opacity})`, // optional color customization
+    //       strokeWidth: 2 // optional line width customization
+    //     }
+    //   ]
+    // };
+    const data = useMemo(() => ({
+      labels: ['Mon', 'Tue', 'Wen', 'Thu', 'Fri', 'Sat', 'Sun'],
+      datasets: [
+        {
+          data: [myGraph[0], myGraph[1], myGraph[2], myGraph[3], myGraph[4], myGraph[5], myGraph[6]],
+          color: (opacity = 1) => `rgba(255, 99, 71, ${opacity})`,
+          strokeWidth: 2
+        }
+      ]
+    }), [myGraph]);
+
     const [myObject, setMyObject] = useState(null);
 
     const handleButtonPress = async () => {

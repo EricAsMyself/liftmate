@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from 'react'
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Button,Image , Animated} from 'react-native';
-import { useNavigation,} from '@react-navigation/core';
+import { useNavigation, useFocusEffect } from '@react-navigation/core';
 import { Audio } from 'expo-av';
-import { getPull, getRest, getWork} from '../components/global';
+import { getPull,getPull2, getRest, getWork} from '../components/global';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import Workout from '../components/workouts'
@@ -10,16 +10,39 @@ import WorkoutTop from '../components/workoutTop'
 import WorkoutRow from '../components/workoutRow'
 
 const HomeScreen = () => {
+    const getObjectFromAsyncStorage = async (key) => {
+        try {
+          const objectString = await AsyncStorage.getItem(key);
+          const object = JSON.parse(objectString);
+          return object;
+        } catch (e) {
+          console.log(`Error retrieving object from AsyncStorage: ${e}`);
+        }
+      };
 
-    useEffect(() => {
-      data = getPull();
-    });
+    const [datalist, setData] = useState([]);
 
-    let data = getPull()
+    useFocusEffect(
+      React.useCallback(() => {
+        const fetchData = async () => {
+          const result = await getPull();
+          for (let i = 0; i < result.length; i++) {
+            const obj = result[i];
+            let workCounter = await getObjectFromAsyncStorage('Counter');
+            let curDay = (workCounter % 3) + 1
+            if (obj.day === curDay) {
+              setData(obj.content);
+              console.log('working');
+            }
+            else{console.log("error")}
+          }
+        };
+        fetchData();
+      }, [])
+    );
+
 
     const navigation = useNavigation()
-
-    const [datalist, setData] = useState(data)
 
     const [buttonText, setButtonText] = useState('Start Timer');
     const [toggleRest, setToggleRest] = useState(false)
@@ -110,18 +133,10 @@ const HomeScreen = () => {
 
     const [currentTime, setCurrentTime] = useState(new Date());
 
-    const getObjectFromAsyncStorage = async (key) => {
-        try {
-          const objectString = await AsyncStorage.getItem(key);
-          const object = JSON.parse(objectString);
-          return object;
-        } catch (e) {
-          console.log(`Error retrieving object from AsyncStorage: ${e}`);
-        }
-      };
+
 
     const handleFinnish = async () => {
-        const myDataString = JSON.stringify(data);
+        const myDataString = JSON.stringify(datalist);
         await AsyncStorage.setItem('myDataKey', myDataString);
 
         let TotalTime = await getObjectFromAsyncStorage('Time');
@@ -132,6 +147,11 @@ const HomeScreen = () => {
         let workCounter = await getObjectFromAsyncStorage('Counter');
         const newCounter = JSON.stringify((workCounter + 1));
         await AsyncStorage.setItem('Counter', newCounter);
+
+        // let myGraph = await getObjectFromAsyncStorage('mainGraph')
+        // myGraph[today.getDay()] = totalSeconds/60
+        let myGraph = {0: 0, 1: 1, 2:10, 3:0, 4:0, 5:0, 6:0}
+        await AsyncStorage.setItem('mainGraph', JSON.stringify(myGraph));
 
         console.log(TotalTime)
         console.log(newTotalTime)

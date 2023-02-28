@@ -33,7 +33,9 @@ export const setRest = (value) => {
   ];
 
   let PPL = [
-    { id: 1, weight: "DeadLift (Barbell)", content:[
+    {
+    day: 1,
+    content: [{ id: 1, weight: "1DeadLift (Barbell)", content:[
     {id: 1,target: 1, weight: 240, reps: 1},
     {id: 2,target: 1, weight: 240, reps: 1},
     {id: 3,target: 1, weight: 240, reps: 1},]
@@ -65,7 +67,78 @@ export const setRest = (value) => {
     {id: 2, weight: 100, reps: 11},
     {id: 3, weight: 20, reps: 10},]
     }
-  ];
+  ]},
+  {
+    day: 2,
+    content: [{ id: 1, weight: "2DeadLift (Barbell)", content:[
+    {id: 1,target: 1, weight: 240, reps: 1},
+    {id: 2,target: 1, weight: 240, reps: 1},
+    {id: 3,target: 1, weight: 240, reps: 1},]
+    },
+    { id: 1, weight: "Let Pulldown", content:[
+    {id: 1, weight: 95, reps: 12},
+    {id: 2, weight: 90, reps: 11},
+    {id: 3, weight: 90, reps: 10},
+    {id: 4, weight: 80, reps: 10},]
+    },
+    { id: 1, weight: "Chest Supported Row", content:[
+    {id: 1, weight: 45, reps: 12},
+    {id: 2, weight: 45, reps: 11},
+    {id: 1, weight: 45, reps: 12},
+    {id: 2, weight: 45, reps: 11},]
+    },
+    { id: 1, weight: "Face pull", content:[
+    {id: 1, weight: 1, reps: 12},
+    {id: 2, weight: 100, reps: 11},
+    {id: 3, weight: 20, reps: 10},]
+    },
+    { id: 1, weight: "Hammer Curl", content:[
+    {id: 1, weight: 1, reps: 12},
+    {id: 2, weight: 100, reps: 11},
+    {id: 3, weight: 20, reps: 10},]
+    },
+    { id: 1, weight: "Bicep Curl (Dumbell)", content:[
+    {id: 1, weight: 1, reps: 12},
+    {id: 2, weight: 100, reps: 11},
+    {id: 3, weight: 20, reps: 10},]
+    }
+  ]},
+  {
+    day: 3,
+    content: [{ id: 1, weight: "3DeadLift (Barbell)", content:[
+    {id: 1,target: 1, weight: 240, reps: 1},
+    {id: 2,target: 1, weight: 240, reps: 1},
+    {id: 3,target: 1, weight: 240, reps: 1},]
+    },
+    { id: 1, weight: "Let Pulldown", content:[
+    {id: 1, weight: 95, reps: 12},
+    {id: 2, weight: 90, reps: 11},
+    {id: 3, weight: 90, reps: 10},
+    {id: 4, weight: 80, reps: 10},]
+    },
+    { id: 1, weight: "Chest Supported Row", content:[
+    {id: 1, weight: 45, reps: 12},
+    {id: 2, weight: 45, reps: 11},
+    {id: 1, weight: 45, reps: 12},
+    {id: 2, weight: 45, reps: 11},]
+    },
+    { id: 1, weight: "Face pull", content:[
+    {id: 1, weight: 1, reps: 12},
+    {id: 2, weight: 100, reps: 11},
+    {id: 3, weight: 20, reps: 10},]
+    },
+    { id: 1, weight: "Hammer Curl", content:[
+    {id: 1, weight: 1, reps: 12},
+    {id: 2, weight: 100, reps: 11},
+    {id: 3, weight: 20, reps: 10},]
+    },
+    { id: 1, weight: "Bicep Curl (Dumbell)", content:[
+    {id: 1, weight: 1, reps: 12},
+    {id: 2, weight: 100, reps: 11},
+    {id: 3, weight: 20, reps: 10},]
+    }
+  ]},
+];
 
   let Empty = [
     { id: 1, weight: "EMPTY", content:[
@@ -131,6 +204,10 @@ export const setWorkout = (value) => {
   };
 
   export const getPull = () => {
-    return data;
+    return PPL; //DO NOT LEAVE THIS SWITCH IT BACK TO data
+  };
+
+  export const getPull2 = () => {
+    return data; //DO NOT LEAVE THIS SWITCH IT BACK TO data
   };
 
