@@ -14,7 +14,7 @@ const HomeScreen = () => {
     return(
         <View style={{backgroundColor: 'E6E6EA'}}>
 
-
+{/* 
                 <Text style={{fontSize: 30,marginLeft: 15,fontWeight: 'bold',}}>
                     Current Workout
                 </Text>      
@@ -22,18 +22,24 @@ const HomeScreen = () => {
                         onPress={() => setWorkout("PPL")}
                         style={styles.curentWorkout}
                         >
-                        <Text>The Basics</Text>
+                        <Text>Reddit PPL</Text>
                         <Image source={require('../assets/PPL.jpg')} style={styles.workoutImage}></Image>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
                 <Text style={{fontSize: 30,marginLeft: 15,fontWeight: 'bold',}}>
                     Workouts
                 </Text>
+
                     <TouchableOpacity
                         onPress={() => setWorkout("PPL")}
                         style={styles.workout}
                         >
-                        <Text>The Basics</Text>
-                        <Image source={require('../assets/PPL.jpg')} style={styles.workoutImage}></Image>
+                        <View>
+                            <Text style={styles.workoutTopText}>The Basics PPL</Text>
+                            <Text> 13 week plan</Text>
+                            <Text>PPL</Text>
+                            <Text>by Reddit</Text>
+                        </View>
+                        <Image source={require('../assets/rslash.png')} style={styles.workoutImage}></Image>
                     </TouchableOpacity>
 
 
@@ -41,16 +47,26 @@ const HomeScreen = () => {
                         onPress={() => setWorkout("BODY")}
                         style={styles.workout}
                         >
-                        <Text>ChatGPT</Text>
-                        <Image source={require('../assets/GPT.png')} style={styles.workoutImage}></Image>
+                        <View>
+                            <Text style={styles.workoutTopText}>The Basics </Text>
+                            <Text> 13 week plan</Text>
+                            <Text>Full body</Text>
+                            <Text>by Reddit</Text>
+                        </View>
+                        <Image source={require('../assets/rslash.png')} style={styles.workoutImage}></Image>
                     </TouchableOpacity>
 
                     <TouchableOpacity
                         onPress={() => setWorkout("EMPTY")}
                         style={styles.workout}
                         >
-                        <Text>Liver Kings</Text>
-                        <Image source={require('../assets/LVK.png')} style={styles.workoutImage}></Image>
+                        <View>
+                            <Text style={styles.workoutTopText}>Empty</Text>
+                            <Text> Make your own</Text>
+                            <Text>PPL</Text>
+                            <Text>by YOU</Text>
+                        </View>
+                        <Image source={require('../assets/compas.png')} style={styles.workoutImage}></Image>
                     </TouchableOpacity>
 
 
@@ -62,6 +78,10 @@ export default HomeScreen
 
 
 const styles = StyleSheet.create({
+    workoutTopText:{
+        fontSize: 30,
+        textAlign: 'center',
+    },
     curentWorkout: {
         flexDirection: 'row',
         margin: 10,

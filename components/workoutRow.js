@@ -2,17 +2,28 @@ import React, {useState} from 'react'
 import { StyleSheet, Text, View, TouchableOpacity, TextInput} from 'react-native';
 import WorkoutTop from './workoutTop'
 import Workout from './workouts'
+import { AntDesign } from '@expo/vector-icons';
 import { setWork } from './global';
 import { Entypo } from '@expo/vector-icons'
 
 const WorkoutRow = (props) => {
+    
 
     const [backgroundColor, setBackgroundColor] = useState('white');
     const [workout, setWorkout] = useState(props.sets)
+
     const [workoutName, setworkoutName] = useState(props.weight)
+    const [toggleName, setToggleName] = useState(false)
 
     const changeName = () => {
-      setworkoutName('ho')
+        if (!toggleName){
+            setToggleName(true)
+        }
+        // else{
+        //     setToggleName(false)
+        // }
+
+
     };
 
     const addWeight = (newObj) => {
@@ -22,10 +33,25 @@ const WorkoutRow = (props) => {
         setWorkout(newWorkout);
       };
 
+    const saveWorkout = () => {
+        setToggleName(false)
+    }
+    const changeWorkout = (text) => {
+        setworkoutName(text)
+    }
+
     return(
                 <View>
                     <View key={props.id}  style={styles.row}>
-                        <Text  style={styles.rowElement} >{workoutName}</Text>
+                        {!toggleName  && (<Text  style={styles.rowElement} >{workoutName}</Text>)}
+                        {toggleName  && ( <View style={{flexDirection: 'row' , flex: 1}}>
+                            <TextInput  style={styles.newInput} placeholder={workoutName} onChangeText={changeWorkout} />
+                            <TouchableOpacity onPress={() => saveWorkout()} style={{backgroundColor:'white', padding: 10}} >
+                            <AntDesign name="checkcircleo" size={24} color="black" />
+                            </TouchableOpacity>
+                        </View>)}
+
+
                         <Text style={styles.rowElement}></Text>
 
                         <TouchableOpacity
@@ -57,6 +83,15 @@ export default WorkoutRow
 
 
 const styles = StyleSheet.create({
+    newInput: {
+        flex: 1,
+        textAlign: 'center',
+        marginTop: 10,
+        marginLeft: 10,
+        borderRadius: 10,
+        height: '70%',
+        backgroundColor: 'lightgray'
+    },
     top:{
         paddingBottom: 50,
         backgroundColor: '#0782F9'

@@ -23,7 +23,7 @@ async function loadFonts() {
 
 loadFonts();
 
-const HomeScreen = () => {
+const HomeScreen = ({ navigation}) => {
     const isFocused = useIsFocused();
     const [time, setTime] = useState(0)
     const [timeString, setTimeString] = useState("Seconds")
@@ -31,14 +31,9 @@ const HomeScreen = () => {
     const name = "John";
 
 
-
-
-
-
-
     
-    const navigation = useNavigation()
-    const [datalist, setData] = useState(data)
+    // const navigation = useNavigation()
+    const [datalist, setDatalist] = useState(data)
 
     const addSnack = (addedFood) => {
         setData([ ...datalist,  addedFood]);
@@ -49,12 +44,13 @@ const HomeScreen = () => {
 
     const [backgroundColor, setBackgroundColor] = useState('white');
 
-    const [myGraph, setMyGraph] = useState({0: 10, 1: 11, 2:10, 3:11, 4:10, 5:11, 6:10})
+    
 
     const handlePress = () => {
       setBackgroundColor(backgroundColor === 'white' ? '#0782F9' : 'white');
     };
-
+    
+    const [myGraph, setMyGraph] = useState({0: 10, 1: 11, 2:10, 3:11, 4:10, 5:11, 6:10})
     const getObjectFromAsyncStorage = async (key) => {
         try {
           const objectString = await AsyncStorage.getItem(key);
@@ -67,28 +63,75 @@ const HomeScreen = () => {
       };
     
 
-  useEffect(() => {
-    const fetchData = async () => {
-      let myGraph = {0: 0, 1: 1, 2:10, 3:0, 4:0, 5:0, 6:0}
-      await AsyncStorage.setItem('mainGraph', JSON.stringify(myGraph));
+  const [data, setData] = useState({
+    labels: ['Mon', 'Tue', 'Wen', 'Thu', 'Fri', 'Sat', 'Sun'],
+    datasets: [
+      {
+        data: [0,0,0,0,0,0,0],
+        color: (opacity = 1) => `rgba(255, 99, 71, ${opacity})`,
+        strokeWidth: 2
+      }
+    ]
+  })
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     // let myGraph = {0: 0, 1: 1, 2:10, 3:0, 4:0, 5:0, 6:0}
+  //     // await AsyncStorage.setItem('mainGraph', JSON.stringify(myGraph));
+  //     const myGraphData = await getObjectFromAsyncStorage('mainGraph');
+  //     setMyGraph(myGraphData);
+  //     console.log(myGraphData)
+  //     setData({
+  //       labels: ['Mon', 'Tue', 'Wen', 'Thu', 'Fri', 'Sat', 'Sun'],
+  //       datasets: [
+  //         {
+  //           data: [myGraphData["0"],myGraphData["1"],myGraphData["2"],myGraphData["3"],myGraphData["4"],myGraphData["5"],myGraphData["6"]],
+  //           color: (opacity = 1) => `rgba(255, 99, 71, ${opacity})`,
+  //           strokeWidth: 2
+  //         }
+  //       ]
+  //     })
+  //   };
+  //   fetchData();
+  // }, [navigation]);
+
+    // const data = useMemo(() => ({
+    //   labels: ['Mon', 'Tue', 'Wen', 'Thu', 'Fri', 'Sat', 'Sun'],
+    //   datasets: [
+    //     {
+    //       data: [myGraph[0], myGraph[1], myGraph[2], myGraph[3], myGraph[4], myGraph[5], myGraph[6]],
+    //       color: (opacity = 1) => `rgba(255, 99, 71, ${opacity})`,
+    //       strokeWidth: 2
+    //     }
+    //   ]
+    // }), [myGraph]);
+
+
+    useEffect(() => {
+      const fetchGraphStuff = async () => {
       const myGraphData = await getObjectFromAsyncStorage('mainGraph');
       setMyGraph(myGraphData);
-    };
+      console.log(myGraphData)
+      setData({
+        labels: ['Mon', 'Tue', 'Wen', 'Thu', 'Fri', 'Sat', 'Sun'],
+        datasets: [
+          {
+            data: [myGraphData["0"],myGraphData["1"],myGraphData["2"],myGraphData["3"],myGraphData["4"],myGraphData["5"],myGraphData["6"]],
+            color: (opacity = 1) => `rgba(255, 99, 71, ${opacity})`,
+            strokeWidth: 2
+          }
+        ]
+      })
+      };
   
-    fetchData();
-  }, [navigation]);
+      if (isFocused) {
+        fetchGraphStuff();
+      }
+    }, [isFocused]);
 
-    const data = useMemo(() => ({
-      labels: ['Mon', 'Tue', 'Wen', 'Thu', 'Fri', 'Sat', 'Sun'],
-      datasets: [
-        {
-          data: [myGraph[0], myGraph[1], myGraph[2], myGraph[3], myGraph[4], myGraph[5], myGraph[6]],
-          color: (opacity = 1) => `rgba(255, 99, 71, ${opacity})`,
-          strokeWidth: 2
-        }
-      ]
-    }), [myGraph]);
 
+
+    
     const [myObject, setMyObject] = useState(null);
 
     const handleButtonPress = async () => {

@@ -25,7 +25,7 @@ const HomeScreen = () => {
     useFocusEffect(
       React.useCallback(() => {
         const fetchData = async () => {
-          const result = await getPull();
+          const result = await getPull2();
           for (let i = 0; i < result.length; i++) {
             const obj = result[i];
             let workCounter = await getObjectFromAsyncStorage('Counter');
@@ -148,10 +148,15 @@ const HomeScreen = () => {
         const newCounter = JSON.stringify((workCounter + 1));
         await AsyncStorage.setItem('Counter', newCounter);
 
-        // let myGraph = await getObjectFromAsyncStorage('mainGraph')
-        // myGraph[today.getDay()] = totalSeconds/60
-        let myGraph = {0: 0, 1: 1, 2:10, 3:0, 4:0, 5:0, 6:0}
+        let myGraph = await getObjectFromAsyncStorage('mainGraph')
+        myGraph[(today.getDay()).toString()] = totalSeconds/60
+        console.log(today.getDay())
+        // let myGraph = {0: 0, 1: 0, 2:0, 3:0, 4:0, 5:0, 6:0}
         await AsyncStorage.setItem('mainGraph', JSON.stringify(myGraph));
+
+        let myGraphs = await getObjectFromAsyncStorage('mainGraph')
+        console.log(myGraphs)
+
 
         console.log(TotalTime)
         console.log(newTotalTime)

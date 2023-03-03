@@ -17,6 +17,7 @@ import Search from '../components/Search'
 
 const HomeScreen = () => {    
     const navigation = useNavigation()
+    const isFocused = useIsFocused();
     
 
     const [activeComponent, setActiveComponent] = useState('Home');
@@ -37,7 +38,7 @@ const HomeScreen = () => {
       setlogo2(componentName === 'Search' ? 'white' : 'gray');
       setlogo3(componentName === 'Profile' ? 'white' : 'gray');
     };
-
+    
     return(
         <View
         style={styles.main}>
@@ -45,8 +46,8 @@ const HomeScreen = () => {
             </View>
             <ScrollView style={{height: '80%'}}>
 
-            {activeComponent === 'Home' && <Home />}
-            {activeComponent === 'Search' && <Search />}
+            {activeComponent === 'Home' && <Home navigation={navigation} />}
+            {activeComponent === 'Search' && <Search  />}
             {activeComponent === 'Profile' && <Settings />}
 
             </ScrollView>
