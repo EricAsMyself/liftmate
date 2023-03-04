@@ -1,27 +1,26 @@
 # Overview
 
-I've worked a little with react-native in the past but I wanted something that would push my knowledge. I also wanted to work on building better Objects in javascript, which this has helped me to do.
+In this project I wanted to make a app that I would use. I was tired of having to pay for apps, that were poorly designed, and decided to make my own.
 
-This App is meant to have you workout with. It has a rest timer, and it also has buttons to click to keep track of the workout.
+This app is for weight lifting. If you want to use I will shortly put it on the app store.
 
-Again I wanted to do a basic project in react-native. To explore the boundries. I also wanted to make a app that I could personally use.
+This app is to help me get to speed with react native, and to play around with objects in js.
 
-[Software Demo Video](https://youtu.be/pKaWEBtK_qE)
+{Provide a link to your YouTube demonstration.  It should be a 4-5 minute demo of the app running and a walkthrough of the code.}
+
+[Software Demo Video](http://youtube.link.goes.here)
 
 # Development Environment
 
-I used React-Native with Expo Go.
-
-I used a variatie of packages with it. including stacks, ands sounds. in react native or expo. I also used. Firebase for the backend, as it is free, for authentications.
+I used expo go for the environment for react native. For packages I've used quite a few, including async for on device storage. I use line chart from react native too.
 
 # Useful Websites
 
-* [React-Native](https://reactnative.dev)
-* [Expo Go](https://expo.dev/client)
+{Make a list of websites that you found helpful in this project}
+* [react-native](https://reactnative.dev/)
+* [expo](https://expo.dev/)
 
 # Future Work
-
-* Personal workout
-* Background Timer
-* UI
-* Save to device with graphs.
+* Add in better UI for the search bar.
+* Add in new workouts
+* Make it easier to switch the order and other things of the workout ui.

@@ -9,7 +9,7 @@ const LoginScreen = () => {
     const [password, setPassword] = useState('')
 
     const navigation = useNavigation()
-    const [login, setlogin] = useState(true)
+    const [login, setlogin] = useState(false)
 
 
     useEffect(() => {
@@ -38,7 +38,7 @@ const LoginScreen = () => {
         auth
         .signInWithEmailAndPassword(email,password )
         .then(userCredentials => {
-            // setlogin(true)
+            setlogin(true)
             const user = userCredentials.user;
             console.log("logged in with:", user.email);
             
